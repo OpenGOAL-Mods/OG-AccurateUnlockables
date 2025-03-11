@@ -16,12 +16,21 @@
     to the function named runs-on-orb-pickup, then jaks powercell count will increase each time you collect
     an orb |#
 
+  (define *main-closing-task* (new 'global 'string 2048 (the-as string #f)))
 
     ;;;;;;;;;;;;;;;;;;;;;;;;;;
     ;; Begin function defintions.
     ;;;;;;;;;;;;;;;;;;;;;;;;;;
 
     (defun runs-every-frame ()
+      (clear *main-closing-task*)
+      
+      (let ((strip-eggs-region (region-lookup-by-id 9)))
+        (when strip-eggs-region
+          (set! (-> strip-eggs-region on-enter) (the-as pair '(when #t (send-event "crane-1" 'notice))))
+          )
+        )
+      
       ;; (increase-power-cell-by-one) This is a call to increase-power-cell-by-one defined in mod-common-functions.gc
 
       ;; Sample code to turn jak pink whenever he's doing the jetboard hover glitch
